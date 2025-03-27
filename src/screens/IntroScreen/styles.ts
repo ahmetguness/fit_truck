@@ -5,9 +5,12 @@ export const styles = StyleSheet.create({
   root: {
     flex: 1,
     marginHorizontal: "5%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   appIconContainer: {
     alignItems: "center",
+    marginBottom: 20,
   },
   appIcon: {
     height: 400,
@@ -15,10 +18,18 @@ export const styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: "center",
+    marginBottom: 20,
   },
-  text: {
+  title: {
     fontWeight: "bold",
     fontSize: 34,
+    textAlign: "center",
+  },
+  description: {
+    fontSize: 15,
+    textAlign: "center",
+    marginHorizontal: 20,
+    marginBottom: 40,
   },
   textButton: {
     alignItems: "center",
@@ -27,7 +38,6 @@ export const styles = StyleSheet.create({
     width: "60%",
     borderRadius: 40,
     backgroundColor: COLORS.primary,
-    marginTop: 20,
   },
   buttonText: {
     color: COLORS.background,

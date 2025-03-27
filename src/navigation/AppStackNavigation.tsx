@@ -1,7 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import IntroScreen from "../screens/IntroScreen/IntroScreen";
-import MenuScreen from "../screens/MenuScreen/MenuScreen";
+
+import AppBottomTabNavigation from "./AppBottomTabNavigation";
 
 const AppStackNavigation = () => {
   const Stack = createStackNavigator();
@@ -13,7 +14,8 @@ const AppStackNavigation = () => {
       }}
     >
       <Stack.Screen name="IntroScreen" component={IntroScreen} />
-      <Stack.Screen name="MenuScreen" component={MenuScreen} />
+
+      <Stack.Screen name="BottomTab" component={AppBottomTabNavigation} />
     </Stack.Navigator>
   );
 };
