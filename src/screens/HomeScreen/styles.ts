@@ -7,14 +7,23 @@ export const styles = StyleSheet.create({
   },
   navbarContainer: {
     width: "100%",
-    height: "10%",
+    height: "8%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: COLORS.background,
+    backgroundColor: COLORS.primary,
   },
   navbarTitle: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: "bold",
-    color: COLORS.primary,
+    color: COLORS.background,
+  },
+  flatlistContainer: {
+    marginTop: "4%",
+    marginHorizontal: "2%",
+  },
+  productListContainer: {
+    flex: 1,
+    marginHorizontal: "2%",
+    marginTop: "4%",
   },
 });
