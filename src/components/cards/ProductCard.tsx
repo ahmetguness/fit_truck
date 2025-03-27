@@ -1,10 +1,9 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Product } from "../../models/Product";
+import { COLORS } from "../../theme/colors";
 
 const ProductCard: React.FC<Product> = ({
-  id,
-  categoryId,
   name,
   price,
   description,
@@ -13,20 +12,26 @@ const ProductCard: React.FC<Product> = ({
   isBestseller,
 }) => {
   return (
-    <View style={styles.root}>
-      <View
-        style={{ width: "50%", alignItems: "center", justifyContent: "center" }}
-      >
-        <Image source={{ uri: image }} style={{ width: 180, height: 180 }} />
-      </View>
-      <View style={{ width: "50%" }}>
-        <Text>{name}</Text>
-        <Text>{description}</Text>
-        <Text>{ingredients}</Text>
-        <Text>{isBestseller}</Text>
-        <Text>{price}</Text>
-        <Text>{id}</Text>
-        <Text>{categoryId}</Text>
+    <View style={styles.card}>
+      {isBestseller && (
+        <View style={styles.bestsellerBadge}>
+          <Text style={styles.bestsellerText}>🔥 Çok Satan</Text>
+        </View>
+      )}
+      <Image source={{ uri: image }} style={styles.image} />
+      <View style={styles.infoContainer}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.description} numberOfLines={2} ellipsizeMode="tail">
+          {description}
+        </Text>
+        <Text style={styles.ingredientsTitle}>🥗 İçindekiler:</Text>
+        <Text style={styles.ingredients} numberOfLines={1} ellipsizeMode="tail">
+          {ingredients}
+        </Text>
+        <View style={styles.footer}>
+          <Text style={styles.price}>💰 ₺{price.toFixed(2)}</Text>
+          <Text style={styles.orderButton}>🛒 Sipariş Ver</Text>
+        </View>
       </View>
     </View>
   );
@@ -35,9 +40,82 @@ const ProductCard: React.FC<Product> = ({
 export default ProductCard;
 
 const styles = StyleSheet.create({
-  root: {
-    width: "100%",
-    height: "25%",
+  card: {
+    backgroundColor: COLORS.background,
+    borderRadius: 15,
+    padding: 12,
     flexDirection: "row",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 6,
+    marginBottom: 15,
+  },
+  bestsellerBadge: {
+    position: "absolute",
+    top: 8,
+    left: 8,
+    backgroundColor: "#ff4757",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    zIndex: 1,
+  },
+  bestsellerText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 12,
+  },
+  image: {
+    width: 130,
+    height: 130,
+    borderRadius: 15,
+    marginRight: 12,
+  },
+  infoContainer: {
+    flex: 1,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: COLORS.text,
+  },
+  description: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    marginVertical: 6,
+  },
+  ingredientsTitle: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginTop: 6,
+    color: "#2f3542",
+  },
+  ingredients: {
+    fontSize: 13,
+    color: COLORS.textSecondary,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#ff4757",
+  },
+  orderButton: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "white",
+    backgroundColor: "#1e90ff",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    overflow: "hidden",
   },
 });

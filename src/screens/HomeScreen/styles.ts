@@ -26,4 +26,10 @@ export const styles = StyleSheet.create({
     marginHorizontal: "2%",
     marginTop: "4%",
   },
+  emptyText: {
+    textAlign: "center",
+    fontSize: 18,
+    color: "#888",
+    marginTop: 20,
+  },
 });

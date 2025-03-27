@@ -4,21 +4,26 @@ import { styles } from "./styles";
 import { CATEGORIES, PRODUCTS } from "../../data/data";
 import CategoryCard from "../../components/cards/CategoryCard";
 import ProductCard from "../../components/cards/ProductCard";
+import Navbar from "../../components/navbar/Navbar";
 
 const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState(0);
+
+  const filteredProducts =
+    selectedCategory === 0
+      ? PRODUCTS.filter((item) => item.isBestseller)
+      : PRODUCTS.filter((item) => item.categoryId === selectedCategory);
+
   return (
     <View style={styles.root}>
-      <View style={styles.navbarContainer}>
-        <Text style={styles.navbarTitle}>Fit Truck</Text>
-      </View>
+      <Navbar />
       <View style={styles.flatlistContainer}>
         <FlatList
           data={CATEGORIES}
           renderItem={({ item }) => (
             <CategoryCard
               title={item.name}
-              isSelected={selectedCategory === item.id ? true : false}
+              isSelected={selectedCategory === item.id}
               onPress={() => setSelectedCategory(item.id)}
             />
           )}
@@ -28,22 +33,23 @@ const HomeScreen = () => {
         />
       </View>
       <View style={styles.productListContainer}>
-        <FlatList
-          data={PRODUCTS}
-          renderItem={({ item }) => (
-            <ProductCard
-              id={item.id}
-              categoryId={item.categoryId}
-              name={item.name}
-              price={item.price}
-              image={item.image}
-              description={item.description}
-              ingredients={item.ingredients}
-              isBestseller={item.isBestseller}
-            />
-          )}
-          ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
-        />
+        {filteredProducts.length > 0 ? (
+          <FlatList
+            data={filteredProducts}
+            renderItem={({ item }) => <ProductCard {...item} />}
+            keyExtractor={(item) => item.id.toString()}
+            ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+            showsVerticalScrollIndicator={false}
+          />
+        ) : (
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Text style={styles.emptyText}>
+              Bu kategoride ürün bulunmamaktadır.
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );
