@@ -4,11 +4,14 @@ import Navbar from "../../components/navbar/Navbar";
 import { styles } from "./styles";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { COLORS } from "../../theme/colors";
-import { PRODUCTS } from "../../data/data";
 import ProductCard from "../../components/cards/ProductCard";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { useSelector } from "react-redux";
+import { RootState } from "../../hooks/reduxtoolkit/store";
 
 const SearchScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const PRODUCTS = useSelector((state: RootState) => state.app.products);
   const [filteredProducts, setFilteredProducts] = useState(PRODUCTS);
 
   const searchProducts = (query: string) => {
@@ -40,8 +43,18 @@ const SearchScreen = () => {
             searchProducts(text);
           }}
         />
-        <TouchableOpacity style={styles.searchIconContainer}>
-          <AntDesign name="search1" size={30} color={COLORS.primary} />
+        <TouchableOpacity
+          style={styles.searchIconContainer}
+          onPress={() => {
+            setSearchQuery("");
+            setFilteredProducts(PRODUCTS);
+          }}
+        >
+          {searchQuery.length <= 0 ? (
+            <AntDesign name="search1" size={30} color={COLORS.primary} />
+          ) : (
+            <FontAwesome6 name="delete-left" size={30} color={COLORS.primary} />
+          )}
         </TouchableOpacity>
       </View>
       <FlatList

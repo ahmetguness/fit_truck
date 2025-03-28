@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import { styles } from "./styles";
-import { CATEGORIES, PRODUCTS } from "../../data/data";
 import CategoryCard from "../../components/cards/CategoryCard";
 import ProductCard from "../../components/cards/ProductCard";
 import Navbar from "../../components/navbar/Navbar";
+import { useSelector } from "react-redux";
+import { RootState } from "../../hooks/reduxtoolkit/store";
 
 const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState(0);
+  const PRODUCTS = useSelector((state: RootState) => state.app.products);
+  const CATEGORIES = useSelector((state: RootState) => state.app.categories);
 
   const filteredProducts =
     selectedCategory === 0
       ? PRODUCTS.filter((item) => item.isBestseller)
-      : PRODUCTS.filter((item) => item.categoryId === selectedCategory);
+      : PRODUCTS.filter(
+          (item) => item.categoryId === selectedCategory.toString()
+        );
 
   return (
     <View style={styles.root}>
@@ -23,8 +28,8 @@ const HomeScreen = () => {
           renderItem={({ item }) => (
             <CategoryCard
               title={item.name}
-              isSelected={selectedCategory === item.id}
-              onPress={() => setSelectedCategory(item.id)}
+              isSelected={selectedCategory === Number(item.id)}
+              onPress={() => setSelectedCategory(Number(item.id))}
             />
           )}
           horizontal
