@@ -6,13 +6,16 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { COLORS } from "../../theme/colors";
 import ProductCard from "../../components/cards/ProductCard";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../hooks/reduxtoolkit/store";
+import { addToCart } from "../../hooks/reduxtoolkit/Slices/AppSlice";
 
 const SearchScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const PRODUCTS = useSelector((state: RootState) => state.app.products);
   const [filteredProducts, setFilteredProducts] = useState(PRODUCTS);
+  const CART = useSelector((state: RootState) => state.app.cart);
+  const dispatch = useDispatch();
 
   const searchProducts = (query: string) => {
     if (query === "") {
@@ -59,10 +62,17 @@ const SearchScreen = () => {
       </View>
       <FlatList
         data={filteredProducts}
-        renderItem={({ item }) => <ProductCard {...item} />}
+        renderItem={({ item }) => (
+          <ProductCard
+            {...item}
+            addCartPress={() => dispatch(addToCart(item.id))}
+            isInCart={CART.ids.includes(item.id) ? true : false}
+          />
+        )}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.productList}
         showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
       />
     </View>
   );

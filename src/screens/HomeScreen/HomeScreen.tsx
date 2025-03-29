@@ -4,13 +4,16 @@ import { styles } from "./styles";
 import CategoryCard from "../../components/cards/CategoryCard";
 import ProductCard from "../../components/cards/ProductCard";
 import Navbar from "../../components/navbar/Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../hooks/reduxtoolkit/store";
+import { addToCart } from "../../hooks/reduxtoolkit/Slices/AppSlice";
 
 const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const PRODUCTS = useSelector((state: RootState) => state.app.products);
   const CATEGORIES = useSelector((state: RootState) => state.app.categories);
+  const CART = useSelector((state: RootState) => state.app.cart);
+  const dispatch = useDispatch();
 
   const filteredProducts =
     selectedCategory === 0
@@ -41,7 +44,13 @@ const HomeScreen = () => {
         {filteredProducts.length > 0 ? (
           <FlatList
             data={filteredProducts}
-            renderItem={({ item }) => <ProductCard {...item} />}
+            renderItem={({ item }) => (
+              <ProductCard
+                {...item}
+                addCartPress={() => dispatch(addToCart(item.id))}
+                isInCart={CART.ids.includes(item.id) ? true : false}
+              />
+            )}
             keyExtractor={(item) => item.id.toString()}
             ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
             showsVerticalScrollIndicator={false}

@@ -1,16 +1,24 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Product } from "../../models/Product";
 import { COLORS } from "../../theme/colors";
 
-const ProductCard: React.FC<Product> = ({
+interface ProductCardProps extends Product {
+  addCartPress: () => void;
+  isInCart: boolean;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({
   name,
   price,
   description,
   image,
   ingredients,
   isBestseller,
+  addCartPress,
+  isInCart,
 }) => {
+  const cartText = isInCart ? "Sepetten Çıkar" : "Sepete Ekle";
   return (
     <View style={styles.card}>
       {isBestseller && (
@@ -29,8 +37,10 @@ const ProductCard: React.FC<Product> = ({
           {ingredients}
         </Text>
         <View style={styles.footer}>
-          <Text style={styles.price}>💰 ₺{price.toFixed(2)}</Text>
-          <Text style={styles.orderButton}>🛒 Sipariş Ver</Text>
+          <Text style={styles.price}>₺{price.toFixed(2)}</Text>
+          <TouchableOpacity onPress={addCartPress} activeOpacity={0.7}>
+            <Text style={styles.orderButton}>🛒 {cartText}</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -106,13 +116,15 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#ff4757",
+    // color: "#ff4757",
+    color: COLORS.primary,
   },
   orderButton: {
     fontSize: 16,
     fontWeight: "bold",
     color: "white",
-    backgroundColor: "#1e90ff",
+    // backgroundColor: "#1e90ff",
+    backgroundColor: COLORS.primary,
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 8,
