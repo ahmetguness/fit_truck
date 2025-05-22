@@ -47,7 +47,7 @@ const IntroScreen = () => {
   };
 
   const title = ["Kaliteli ve Sağlıklı", "Yemek"];
-  const description = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque fuga iusto quae vitae sunt quam praesentium quibusdam dolor consequatur. Quis, ratione harum voluptas explicabo doloremque animi n architecto ea veritatis!`;
+  const description = `Fit Truck, sana nerede olursan ol sağlıklı beslenme seçenekleri sunar. Hızlı, taze ve fit menüler için uygulamayı keşfetmeye başla.`;
   const btnText = "Menüyü Görmek İçin Tıkla";
   return (
     <View style={styles.root}>

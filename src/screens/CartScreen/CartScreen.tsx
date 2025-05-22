@@ -7,7 +7,6 @@ import { RootState } from "../../hooks/reduxtoolkit/store";
 import { Product } from "../../models/Product";
 import ProductCard from "../../components/cards/ProductCard";
 import { addToCart, clearCart } from "../../hooks/reduxtoolkit/Slices/AppSlice";
-import { COLORS } from "../../theme/colors";
 
 const CartScreen = () => {
   const CART = useSelector((state: RootState) => state.app.cart);
@@ -44,53 +43,26 @@ const CartScreen = () => {
               showsVerticalScrollIndicator={false}
             />
           </View>
-          <View
-            style={{
-              flex: 0.12,
-              width: "100%",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <View
-              style={{
-                alignItems: "center",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <Text>
+          <View style={styles.cartFooter}>
+            <View style={styles.cartSummary}>
+              <Text style={styles.cartSummaryText}>
                 Sepetinizde {CART.ids.length} tane ürün bulunmaktadır.
               </Text>
               <TouchableOpacity
-                style={{
-                  height: 40,
-                  backgroundColor: "#ff4757",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: 10,
-                  paddingHorizontal: "5%",
-                }}
+                style={styles.clearCartButton}
                 onPress={() => dispatch(clearCart())}
               >
-                <Text style={{ color: "white", fontWeight: "bold" }}>
-                  Sepeti Temizle
-                </Text>
+                <Text style={styles.clearCartText}>Sepeti Temizle</Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-              style={{
-                width: "96%",
-                marginHorizontal: "2%",
-                backgroundColor: COLORS.primary,
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                borderRadius: 10,
-                height: 40,
-                alignItems: "center",
-              }}
+              style={styles.confirmCartButton}
+              onPress={() => console.log("Confirm Cart")}
             >
-              <Text>Sepeti Onayla</Text>
-              <Text>Tutar: {CART.totalPrice}TL</Text>
+              <Text style={styles.confirmCartText}>Sepeti Onayla</Text>
+              <Text style={styles.confirmCartText}>
+                Tutar: {CART.totalPrice}TL
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

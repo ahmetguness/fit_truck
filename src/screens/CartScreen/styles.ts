@@ -19,40 +19,51 @@ export const styles = StyleSheet.create({
     marginTop: "4%",
     flex: 1,
   },
-  cartSummary: {
-    marginBottom: "4%",
-  },
-  priceRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  priceText: {
-    fontSize: 20,
-  },
   listWrapper: {
-    // marginBottom: 150,
     flex: 0.88,
   },
   separator: {
     height: 20,
   },
-  confirmButtonContainer: {
-    // position: "absolute",
-    // bottom: "2%",
-    // width: "100%",
+  cartFooter: {
+    flex: 0.12,
+    width: "100%",
+    justifyContent: "space-evenly",
   },
-  confirmButton: {
-    width: "98%",
-    backgroundColor: COLORS.primary,
-    height: 45,
-    marginHorizontal: "1%",
-    borderRadius: 10,
+  cartSummary: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  cartSummaryText: {
+    fontSize: 15,
+  },
+  clearCartButton: {
+    height: 40,
+    backgroundColor: "#ff4757",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 10,
+    paddingHorizontal: "5%",
   },
-  confirmButtonText: {
-    color: COLORS.background,
+  clearCartText: {
+    color: "white",
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 16,
+  },
+  confirmCartButton: {
+    width: "96%",
+    marginHorizontal: "2%",
+    backgroundColor: COLORS.primary,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    borderRadius: 10,
+    height: 40,
+    alignItems: "center",
+  },
+  confirmCartText: {
+    color: COLORS.white,
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
